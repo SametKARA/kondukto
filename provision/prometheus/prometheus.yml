@@ -1,0 +1,47 @@
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.# A scrape configuration containing exactly one endpoint to scrape:
+
+scrape_configs:
+  - job_name: 'mongoS'
+    static_configs:
+      - targets: ['172.17.0.1:9216']
+        labels:
+          node_name: nodeMongos
+          service_name: mongos
+          service_type: mongos
+
+  - job_name: 'mongoRS1'
+    static_configs:
+      - targets: ['172.17.0.1:9217']
+        labels:
+          node_name: nodeMongoDBReplicationSet1
+          service_name: mongodb_rs1
+          service_type: mongodb
+          replication_set: rs1
+
+  - job_name: 'mongoRS2'
+    static_configs:
+      - targets: ['172.17.0.1:9218']
+        labels:
+          node_name: nodeMongoDBReplicationSet2
+          service_name: mongodb_rs2
+          service_type: mongodb
+          replication_set: rs2
+
+  - job_name: 'mongoCNF'
+    static_configs:
+      - targets: ['172.17.0.1:9219']
+        labels:
+          node_name: nodeMongoDBCNF
+          service_name: mongodb_cnf
+          service_type: mongodb
+          replication_set: cnf-serv
+
+  - job_name: 'Prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          node_name: nodePrometheus
+          service_name: prometheus
+          service_type: prometheus

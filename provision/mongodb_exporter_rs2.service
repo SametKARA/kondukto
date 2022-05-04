@@ -1,0 +1,11 @@
+[Unit]
+Description=MongoDB Exporter
+User=prometheus
+
+[Service]
+Type=simple
+Restart=on-failure
+ExecStart=/usr/local/bin/mongodb_exporter_rs2 --mongodb.uri=mongodb://localhost:17004 --compatible-mode --mongodb.direct-connect=false --discovering-mode --web.listen-address=":9218"
+
+[Install]
+WantedBy=multi-user.target
